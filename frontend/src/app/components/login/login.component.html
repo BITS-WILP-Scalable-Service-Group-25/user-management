@@ -1,0 +1,28 @@
+<div class="gradient-page">
+  <div class="glass-card">
+    <!-- Login View -->
+    <div *ngIf="!(auth.isAuthenticated() | async)" class="login-content">
+      <h1>Welcome Back</h1>
+      <p class="subtitle">Sign in to continue to your dashboard</p>
+      
+      <button (click)="login()" class="gradient-button">
+        Sign in with Auth0
+      </button>
+    </div>
+
+    <!-- Profile View -->
+    <div *ngIf="auth.isAuthenticated() | async" class="profile-content">
+      <div class="profile-info">
+        <img [src]="(auth.getUser() | async)?.picture" alt="Profile" 
+             *ngIf="(auth.getUser() | async)?.picture" 
+             class="avatar">
+        <h2>{{ (auth.getUser() | async)?.name }}</h2>
+        <p>{{ (auth.getUser() | async)?.email }}</p>
+      </div>
+      
+      <button (click)="logout()" class="gradient-button logout">
+        Sign out
+      </button>
+    </div>
+  </div>
+</div>
