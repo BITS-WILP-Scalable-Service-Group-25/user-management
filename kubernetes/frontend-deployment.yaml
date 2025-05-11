@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: um-frontend-deployment
+  labels:
+    app: frontend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+        - name: frontend
+          image: um-frontend:latest
+          ports:
+            - containerPort: 4200
+          env:
+            - name: NODE_ENV
+              value: "production"
+            - name: BACKEND_URL
+              value: "http://backend-service"
+          resources:
+            limits:
+              cpu: "300m"
+              memory: "384Mi"
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 4200
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 4200
+            initialDelaySeconds: 5
+            periodSeconds: 10
