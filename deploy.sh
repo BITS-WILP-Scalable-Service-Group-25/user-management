@@ -5,8 +5,8 @@ set -e  # Exit on any error
 
 LOG_DIR="logs"
 LOG_FILE="$LOG_DIR/deploy-$(date +%Y%m%d-%H%M%S).log"
-BACKEND_IMAGE="um-backend:latest"
-FRONTEND_IMAGE="um-frontend:latest"
+BACKEND_IMAGE="ss-user-management-backend:latest"
+FRONTEND_IMAGE="ss-user-management-frontend:latest"
 
 # Create logs directory if it doesn't exist
 mkdir -p "$LOG_DIR"
